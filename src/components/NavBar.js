@@ -6,9 +6,9 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <span className="navbar-brand">
-          Welcome{" "}
+          Welcome
           <b>
-            <i>{user.firstName}</i>
+            <i> {user.firstName}</i>
           </b>
         </span>
         <span className="badge badge-danger ml-auto">{user.cart.length}</span>

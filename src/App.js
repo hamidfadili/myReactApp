@@ -5,6 +5,7 @@ import UserData from "./components/UserData";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import "bootstrap/dist/css/bootstrap.min.css";
+import UserContext from "./contexts/UserContext";
 
 class App extends Component {
   state = {
@@ -26,37 +27,28 @@ class App extends Component {
 
   handleUserChange = (user) => this.setState({ user });
 
-  handleAddToCart = (product) => () => {
-    const user = {
-      ...this.state.user,
-      cart: [...this.state.user.cart, product],
-    };
-    this.setState({ user });
-  };
   render() {
     return (
-      <div className="App">
-        <NavBar user={this.state.user} />
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-3 left">
-              <UserData
-                user={this.state.user}
-                onChange={this.handleUserChange}
-              />
-            </div>
-            <div className="col-md-6 content">
-              <ProductList
-                products={this.state.products}
-                onAddToCart={this.handleAddToCart}
-              />
-            </div>
-            <div className="col-md-3 right">
-              <Cart products={this.state.user.cart} />
+      <UserContext.Provider
+        value={{ user: this.state.user, onChange: this.handleUserChange }}
+      >
+        <div className="App">
+          <NavBar user={this.state.user} />
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-3 left">
+                <UserData />
+              </div>
+              <div className="col-md-6 content">
+                <ProductList products={this.state.products} />
+              </div>
+              <div className="col-md-3 right">
+                <Cart />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </UserContext.Provider>
     );
   }
 }
