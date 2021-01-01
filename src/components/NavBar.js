@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
@@ -12,15 +12,15 @@ class NavBar extends Component {
             <i> {user.firstName}</i>
           </b>
         </span>
-        <Link class="nav-link" to="/">
+        <NavLink exact className="nav-link" to="/">
           Products
-        </Link>
-        <Link class="nav-link" to="/cart">
+        </NavLink>
+        <NavLink className="nav-link" to="/cart">
           Cart
-        </Link>
-        <Link class="nav-link" to="/profile">
+        </NavLink>
+        <NavLink className="nav-link" to="/user">
           Profile
-        </Link>
+        </NavLink>
         <span className="badge badge-danger ml-auto">{user.cart.length}</span>
       </nav>
     );

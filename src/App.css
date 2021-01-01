@@ -1,17 +1,4 @@
-
-/*
-.right{
-    background-color: red;
+.nav-link.active {
+  background-color: black;
+  color: white;
 }
-
-.left{
-    background-color: royalblue;
-}
-
-.content{
-    background-color : blueviolet
-}
-
-.right,.left,.content{
-    color: white;
-}*/

@@ -1,12 +1,12 @@
 import "./App.css";
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
-import UserData from "./components/UserData";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserContext from "./contexts/UserContext";
-import { Route, Router, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import UserSpace from "./components/UserSpace";
 
 class App extends Component {
   state = {
@@ -37,7 +37,7 @@ class App extends Component {
           <NavBar user={this.state.user} />
           <div className="container">
             <Switch>
-              <Route path="/profile" component={UserData} />
+              <Route path="/user" component={UserSpace} />
               <Route path="/cart" component={Cart} />
               <Route
                 path="/"
