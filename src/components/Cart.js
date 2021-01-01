@@ -8,7 +8,7 @@ export default class Cart extends Component {
       <UserContext.Consumer>
         {({ user }) => (
           <div>
-            <h1>Cart of : </h1>
+            <h1>Cart of : {user.lastName}</h1>
             {user.cart.map((p) => (
               <Product product={p} inCart />
             ))}

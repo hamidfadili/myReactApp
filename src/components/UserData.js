@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import UserContext from "../contexts/UserContext";
-import Input from "./Input";
 
 export default class UserData extends Component {
   static contextType = UserContext;
@@ -19,38 +18,16 @@ export default class UserData extends Component {
     return (
       <UserContext.Consumer>
         {({ user }) => (
-          <div className="p-2">
-            <form onSubmit={this.showUser}>
-              <Input
-                id="firstName"
-                label="First name"
-                onChange={this.onFormUpdated}
-                value={user.firstName}
-              />
-              <Input
-                id="lastName"
-                label="Last name"
-                onChange={this.onFormUpdated}
-                value={user.lastName}
-              />
-              <Input
-                id="email"
-                label="Email address"
-                onChange={this.onFormUpdated}
-                value={user.email}
-                type="email"
-              />
-              <Input
-                id="password"
-                label="Password"
-                onChange={this.onFormUpdated}
-                value={user.password}
-                type="password"
-              />
-              <button onClick={this.showUser} className="btn btn-primary">
-                Update
-              </button>
-            </form>
+          <div className="p-2 mt-2">
+            <p>
+              <b>Name : </b> {`${user.firstName} ${user.lastName}`}
+            </p>
+            <p>
+              <b>Email : </b> {user.email}
+            </p>
+            <p>
+              <b>Password : </b> {user.password.replaceAll(/./g, "*")}
+            </p>
           </div>
         )}
       </UserContext.Consumer>

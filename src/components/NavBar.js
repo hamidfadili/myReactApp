@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
@@ -11,6 +12,15 @@ class NavBar extends Component {
             <i> {user.firstName}</i>
           </b>
         </span>
+        <NavLink exact className="nav-link" to="/">
+          Products
+        </NavLink>
+        <NavLink className="nav-link" to="/cart">
+          Cart
+        </NavLink>
+        <NavLink className="nav-link" to="/user">
+          Profile
+        </NavLink>
         <span className="badge badge-danger ml-auto">{user.cart.length}</span>
       </nav>
     );

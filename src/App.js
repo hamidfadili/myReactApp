@@ -1,11 +1,12 @@
 import "./App.css";
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
-import UserData from "./components/UserData";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserContext from "./contexts/UserContext";
+import { Route, Switch } from "react-router-dom";
+import UserSpace from "./components/UserSpace";
 
 class App extends Component {
   state = {
@@ -34,18 +35,15 @@ class App extends Component {
       >
         <div className="App">
           <NavBar user={this.state.user} />
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-3 left">
-                <UserData />
-              </div>
-              <div className="col-md-6 content">
-                <ProductList products={this.state.products} />
-              </div>
-              <div className="col-md-3 right">
-                <Cart />
-              </div>
-            </div>
+          <div className="container">
+            <Switch>
+              <Route path="/user" component={UserSpace} />
+              <Route path="/cart" component={Cart} />
+              <Route
+                path="/"
+                render={() => <ProductList products={this.state.products} />}
+              />
+            </Switch>
           </div>
         </div>
       </UserContext.Provider>
