@@ -1,15 +1,34 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import store from "../redux/store";
 
 class NavBar extends Component {
+  state = {};
+
+  componentDidMount() {
+    this.refresh();
+    this.unsubscribe = store.subscribe(this.refresh);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe && this.unsubscribe();
+  }
+
+  refresh = () => {
+    const { user, cart } = store.getState();
+    this.setState({
+      username: user.firstName,
+      cartSize: cart.length,
+    });
+  };
+
   render() {
-    const user = this.props.user;
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <span className="navbar-brand">
           Welcome
           <b>
-            <i> {user.firstName}</i>
+            <i> {this.state.username}</i>
           </b>
         </span>
         <NavLink exact className="nav-link" to="/">
@@ -21,7 +40,9 @@ class NavBar extends Component {
         <NavLink className="nav-link" to="/user">
           Profile
         </NavLink>
-        <span className="badge badge-danger ml-auto">{user.cart.length}</span>
+        <span className="badge badge-danger ml-auto">
+          {this.state.cartSize}
+        </span>
       </nav>
     );
   }

@@ -1,36 +1,38 @@
 import React, { Component } from "react";
-import UserContext from "../contexts/UserContext";
+import store from "../redux/store";
 
 export default class UserData extends Component {
-  static contextType = UserContext;
-  showUser = (e) => {
-    console.log(this.context);
-    e.preventDefault();
-  };
+  state = {};
+  unsubscribe = null;
 
-  onFormUpdated = ({ currentTarget: input }) => {
-    const user = { ...this.context.user };
-    user[input.name] = input.value;
-    this.context.onChange(user);
+  componentDidMount() {
+    this.refresh();
+    this.unsubscribe = store.subscribe(this.refresh);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe && this.unsubscribe();
+  }
+
+  refresh = () => {
+    const { user } = store.getState();
+    this.setState({ ...user });
   };
 
   render() {
+    if (!this.state.password) return <div>No user Data!!</div>;
     return (
-      <UserContext.Consumer>
-        {({ user }) => (
-          <div className="p-2 mt-2">
-            <p>
-              <b>Name : </b> {`${user.firstName} ${user.lastName}`}
-            </p>
-            <p>
-              <b>Email : </b> {user.email}
-            </p>
-            <p>
-              <b>Password : </b> {user.password.replaceAll(/./g, "*")}
-            </p>
-          </div>
-        )}
-      </UserContext.Consumer>
+      <div className="p-2 mt-2">
+        <p>
+          <b>Name : </b> {`${this.state.firstName} ${this.state.lastName}`}
+        </p>
+        <p>
+          <b>Email : </b> {this.state.email}
+        </p>
+        <p>
+          <b>Password : </b> {this.state.password.replaceAll(/./g, "*")}
+        </p>
+      </div>
     );
   }
 }
