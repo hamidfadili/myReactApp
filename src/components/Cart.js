@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Product from "./Product";
 import store from "../redux/store";
+import { Map as MapComponent } from "react-lodash";
 
 export default class Cart extends Component {
   state = { products: new Map(), username: "" };
@@ -25,9 +26,12 @@ export default class Cart extends Component {
     return (
       <div>
         <h1>Cart of : {this.state.username}</h1>
-        {Object.keys(this.state.products).map((pId) => (
-          <Product key={pId + "-" + i++} productId={pId} inCart />
-        ))}
+        <MapComponent
+          collection={Object.keys(this.state.products)}
+          iteratee={(pId) => (
+            <Product key={pId + "-" + i++} productId={pId} inCart />
+          )}
+        />
       </div>
     );
   }

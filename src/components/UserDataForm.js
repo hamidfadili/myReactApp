@@ -21,8 +21,7 @@ export default class UserDataForm extends Component {
   }
 
   refresh = () => {
-    const { user } = store.getState();
-    this.setState({ ...user });
+    this.setState(store.getState().user);
   };
 
   handelSubmit = (e) => {

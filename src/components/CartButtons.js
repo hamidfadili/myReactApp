@@ -9,8 +9,17 @@ class CartButtons extends Component {
   };
 
   componentDidMount() {
-    this.setState(store.getState().cart[this.props.productId]);
+    this.refresh();
+    this.unsubscribe = store.subscribe(this.refresh);
   }
+
+  componentWillUnmount() {
+    this.unsubscribe && this.unsubscribe();
+  }
+
+  refresh = () => {
+    this.setState(store.getState().cart[this.props.productId]);
+  };
 
   handleCountChange = (data) => {
     let count = parseInt(data);
@@ -19,7 +28,6 @@ class CartButtons extends Component {
         type: UPDATE_CART_COUNT,
         payload: { productId: this.props.productId, count },
       });
-      this.setState({ count });
     }
   };
 

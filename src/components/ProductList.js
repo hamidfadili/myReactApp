@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Product from "./Product";
 import store from "../redux/store";
+import { Map } from "react-lodash";
 
 export default class ProductList extends Component {
   state = { products: {} };
-  unsubscribe = null;
 
   componentDidMount() {
     this.refresh();
@@ -24,9 +24,10 @@ export default class ProductList extends Component {
     return (
       <>
         <h1>{ProductList.name}</h1>
-        {Object.keys(this.state.products).map((pId) => (
-          <Product key={pId} productId={pId} />
-        ))}
+        <Map
+          collection={Object.keys(this.state.products)}
+          iteratee={(pId) => <Product key={pId} productId={pId} />}
+        />
       </>
     );
   }

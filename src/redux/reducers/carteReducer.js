@@ -7,8 +7,7 @@ const carteReducer = function (state = {}, action) {
       return cartService.addToCart(state, action.payload);
     }
     case UPDATE_CART_COUNT: {
-      let res = cartService.updateProductCount(state, action.payload);
-      return res;
+      return cartService.updateProductCount(state, action.payload);
     }
     default:
       return state;

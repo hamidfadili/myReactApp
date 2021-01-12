@@ -4,7 +4,7 @@ class CartService {
   addToCart(state, productId) {
     let mutableState = cloneDeep(state);
     if (mutableState[productId]) {
-      mutableState[productId] += 1;
+      mutableState[productId].count += 1;
     } else {
       mutableState[productId] = { productId, count: 1 };
     }
@@ -12,8 +12,9 @@ class CartService {
   }
 
   updateProductCount(state, { productId, count }) {
-    console.log({ count, productId });
-    return state;
+    let metableState = cloneDeep(state);
+    metableState[productId] = { productId, count };
+    return metableState;
   }
 }
 
