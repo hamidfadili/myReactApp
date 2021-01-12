@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import store from "../redux/store";
+import repeat from "lodash/repeat";
 
 export default class UserData extends Component {
   state = {};
@@ -30,7 +31,7 @@ export default class UserData extends Component {
           <b>Email : </b> {this.state.email}
         </p>
         <p>
-          <b>Password : </b> {this.state.password.replaceAll(/./g, "*")}
+          <b>Password : </b> {repeat("*", this.state.password.length)}
         </p>
       </div>
     );

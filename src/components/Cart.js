@@ -3,7 +3,7 @@ import Product from "./Product";
 import store from "../redux/store";
 
 export default class Cart extends Component {
-  state = { products: [] };
+  state = { products: new Map(), username: "" };
   unsubscribe = null;
 
   componentDidMount() {
@@ -16,18 +16,17 @@ export default class Cart extends Component {
   }
 
   refresh = () => {
-    const { cart } = store.getState();
-    this.setState({ products: cart });
+    const { cart, user } = store.getState();
+    this.setState({ products: cart, username: user.firstName });
   };
 
   render() {
-    const user = { lastName: "Fadili", cart: [] };
     let i = 1;
     return (
       <div>
-        <h1>Cart of : {user.lastName}</h1>
-        {this.state.products.map((p) => (
-          <Product key={p.id + "-" + i++} product={p} inCart />
+        <h1>Cart of : {this.state.username}</h1>
+        {Object.keys(this.state.products).map((pId) => (
+          <Product key={pId + "-" + i++} productId={pId} inCart />
         ))}
       </div>
     );

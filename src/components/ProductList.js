@@ -3,7 +3,7 @@ import Product from "./Product";
 import store from "../redux/store";
 
 export default class ProductList extends Component {
-  state = { products: [] };
+  state = { products: {} };
   unsubscribe = null;
 
   componentDidMount() {
@@ -24,8 +24,8 @@ export default class ProductList extends Component {
     return (
       <>
         <h1>{ProductList.name}</h1>
-        {this.state.products.map((p) => (
-          <Product key={p.id} product={p} />
+        {Object.keys(this.state.products).map((pId) => (
+          <Product key={pId} productId={pId} />
         ))}
       </>
     );
