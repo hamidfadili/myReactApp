@@ -14,11 +14,19 @@ class NavBar extends Component {
     this.unsubscribe && this.unsubscribe();
   }
 
+  calculLength = (cart = {}) => {
+    let summe = 0;
+    Object.values(cart).forEach((p) => {
+      summe += p.count;
+    });
+    return summe;
+  };
+
   refresh = () => {
     const { user, cart } = store.getState();
     this.setState({
       username: user.firstName,
-      cartSize: cart.length,
+      cartSize: this.calculLength(cart),
     });
   };
 

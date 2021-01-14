@@ -6,7 +6,7 @@ class CartService {
     if (mutableState[productId]) {
       mutableState[productId].count += 1;
     } else {
-      mutableState[productId] = { productId, count: 1 };
+      mutableState[productId] = { productId: parseInt(productId), count: 1 };
     }
     return mutableState;
   }
