@@ -1,21 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import { UPDATE_CART_COUNT } from "../redux/actionTypes";
 import store from "../redux/store";
+import ReduxComponent from "../reusable/ReduxComponent";
 
-class CartButtons extends Component {
+class CartButtons extends ReduxComponent {
   state = {
     count: 1,
     productId: 1,
   };
-
-  componentDidMount() {
-    this.refresh();
-    this.unsubscribe = store.subscribe(this.refresh);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
 
   refresh = () => {
     this.setState(store.getState().cart[this.props.productId]);

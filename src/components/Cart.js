@@ -1,20 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Product from "./Product";
 import store from "../redux/store";
+import ReduxComponent from "../reusable/ReduxComponent";
 import { Map as MapComponent } from "react-lodash";
 
-export default class Cart extends Component {
+export default class Cart extends ReduxComponent {
   state = { products: new Map(), username: "" };
-  unsubscribe = null;
-
-  componentDidMount() {
-    this.refresh();
-    this.unsubscribe = store.subscribe(this.refresh);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
 
   refresh = () => {
     const { cart, user } = store.getState();

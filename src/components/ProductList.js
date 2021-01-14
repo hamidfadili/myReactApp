@@ -2,18 +2,10 @@ import React, { Component } from "react";
 import Product from "./Product";
 import store from "../redux/store";
 import { Map } from "react-lodash";
+import ReduxComponent from "../reusable/ReduxComponent";
 
-export default class ProductList extends Component {
+export default class ProductList extends ReduxComponent {
   state = { products: {} };
-
-  componentDidMount() {
-    this.refresh();
-    this.unsubscribe = store.subscribe(this.refresh);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
 
   refresh = () => {
     const { products } = store.getState();

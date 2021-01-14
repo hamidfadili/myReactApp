@@ -1,19 +1,10 @@
 import React, { Component } from "react";
 import store from "../redux/store";
 import repeat from "lodash/repeat";
+import ReduxComponent from "../reusable/ReduxComponent";
 
-export default class UserData extends Component {
+export default class UserData extends ReduxComponent {
   state = {};
-  unsubscribe = null;
-
-  componentDidMount() {
-    this.refresh();
-    this.unsubscribe = store.subscribe(this.refresh);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
 
   refresh = () => {
     const { user } = store.getState();

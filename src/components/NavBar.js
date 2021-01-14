@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import store from "../redux/store";
+import ReduxComponent from "../reusable/ReduxComponent";
 
-class NavBar extends Component {
+class NavBar extends ReduxComponent {
   state = {};
-
-  componentDidMount() {
-    this.refresh();
-    this.unsubscribe = store.subscribe(this.refresh);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
 
   calculLength = (cart = {}) => {
     let summe = 0;
