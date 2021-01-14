@@ -1,16 +1,11 @@
 import React, { Component } from "react";
+import { Formik, Form, Field } from "formik";
 import { UPDATE_USER } from "../redux/actionTypes";
 import store from "../redux/store";
 import Input from "./Input";
+import LabeledField from "../reusable/LabeledField";
 
 export default class UserDataForm extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  };
-
   componentDidMount() {
     this.refresh();
     this.unsubscribe = store.subscribe(this.refresh);
@@ -24,9 +19,8 @@ export default class UserDataForm extends Component {
     this.setState(store.getState().user);
   };
 
-  handelSubmit = (e) => {
-    store.dispatch({ type: UPDATE_USER, payload: { ...this.state } });
-    e.preventDefault();
+  handelSubmit = (values) => {
+    store.dispatch({ type: UPDATE_USER, payload: { ...values } });
   };
 
   onFormUpdated = ({ currentTarget: input }) => {
@@ -37,39 +31,21 @@ export default class UserDataForm extends Component {
 
   render() {
     return (
-      <div className="p-2">
-        <form onSubmit={this.handelSubmit}>
-          <Input
-            id="firstName"
-            label="First name"
-            onChange={this.onFormUpdated}
-            value={this.state.firstName}
-          />
-          <Input
-            id="lastName"
-            label="Last name"
-            onChange={this.onFormUpdated}
-            value={this.state.lastName}
-          />
-          <Input
-            id="email"
-            label="Email address"
-            onChange={this.onFormUpdated}
-            value={this.state.email}
-            type="email"
-          />
-          <Input
-            id="password"
-            label="Password"
-            onChange={this.onFormUpdated}
-            value={this.state.password}
-            type="password"
-          />
+      <Formik
+        className="p-2"
+        initialValues={store.getState().user}
+        onSubmit={this.handelSubmit}
+      >
+        <Form>
+          <LabeledField label="First name" />
+          <LabeledField label="Last name" />
+          <LabeledField label="Email" type="email" />
+          <LabeledField label="Password" type="password" />
           <button type="submit" className="btn btn-primary">
             Update
           </button>
-        </form>
-      </div>
+        </Form>
+      </Formik>
     );
   }
 }
