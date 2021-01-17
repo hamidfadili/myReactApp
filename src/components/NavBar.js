@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import store from "../redux/store";
 import ReduxComponent from "../reusable/ReduxComponent";
@@ -14,12 +14,25 @@ class NavBar extends ReduxComponent {
     return summe;
   };
 
+  componentDidMount() {
+    super.componentDidMount();
+    console.log("navbar mount");
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    console.log("Navbar unmount");
+  }
+
   refresh = () => {
     const { user, cart } = store.getState();
+    console.log("navbar refrech", { user, state: this.state });
+    let temp = this.state;
     this.setState({
       username: user.firstName,
       cartSize: this.calculLength(cart),
     });
+    console.log("same state reference ? : " + (this.state === temp));
   };
 
   render() {

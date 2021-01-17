@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import store from "../redux/store";
 import repeat from "lodash/repeat";
 import ReduxComponent from "../reusable/ReduxComponent";
